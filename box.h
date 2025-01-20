@@ -1,3 +1,5 @@
+#ifndef BOX_H
+#define BOX_H
 
 class Box{
     private:
@@ -17,4 +19,6 @@ class Box{
         double getSidex();
         double getSidey();
 
-}
+};
+
+#endif
