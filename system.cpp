@@ -3,7 +3,7 @@
 
 // The update rule
 void System::updateRule(){
-    std::cout<<"Updating the system...S";
+    std::cout<<"Updating the system...\n";
 }
 
 // Defining the constructor
