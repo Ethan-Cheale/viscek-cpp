@@ -7,11 +7,7 @@
 
 class System {
   public:
-    System();
-    int   particleNumber;
-    double noiseStrength;
-    //Box simulationBox;
-    //std::vector<Particle> particles;
+    System(int particleNumber, double sideLength, double timeStep,double noiseStrength);
 
     void updateRule();
 };
