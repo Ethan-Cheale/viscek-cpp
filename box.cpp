@@ -1,7 +1,6 @@
 #include "box.h"
 
 Box::Box(){
-
 }
 
 Box::Box(double lx, double ly, double x0, double y0){
