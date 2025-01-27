@@ -9,7 +9,8 @@ void System::updateRule(){
 }
 
 // Defining the constructor
-System::System(int particleNumber, double sideLength, double timeStep,double noiseStrength){
+System::System(int particleNumber, double sideLength, double timeStep,double noiseStrength, int seed){
+    //initialising variables
     this->particleNumber = particleNumber;
     this->noiseStrength = noiseStrength;
     this->sideLength = sideLength;
@@ -19,5 +20,12 @@ System::System(int particleNumber, double sideLength, double timeStep,double noi
     this->simulationBox.setOrigin(0,0);
     //initialising particle vector
     this->particles.resize(particleNumber);
+    //initialising generator
+    this->gen = std::mt19937(seed);
     std::cout<<"I am constructing the System!\n";
+}
+
+// Defining uniform function
+double System::uniform(double min, double max){
+    return (max-min)*this->uniformDist(gen)+ min;
 }
