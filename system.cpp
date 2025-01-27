@@ -29,3 +29,11 @@ System::System(int particleNumber, double sideLength, double timeStep,double noi
 double System::uniform(double min, double max){
     return (max-min)*this->uniformDist(gen)+ min;
 }
+
+void System::randomStart(){
+    for (Particle &p: this->particles){
+        p.x = this->uniform(0, this->getSidex());
+        p.y = this->uniform(0, this->getSidey());
+        p.theta = this->uniform(std::number::pi * -1, std::number::pi);
+    }
+}

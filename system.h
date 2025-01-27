@@ -15,11 +15,14 @@ class System {
     double timeStep;
     Box simulationBox;
     std::vector<Particle> particles;
-    void updateRule();
+    
 
     std::mt19937 gen;
     std::uniform_real_distribution<double> uniformDist;
     double uniform(double min, double max);
+
+    void updateRule();
+    void randomStart();  
 };
 
 #endif
