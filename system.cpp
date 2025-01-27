@@ -4,11 +4,6 @@
 #include "box.h"
 #include "particle.h"
 
-// The update rule
-void System::updateRule(){
-    std::cout<<"Updating the system...\n";
-}
-
 // Defining the constructor
 System::System(int particleNumber, double sideLength, double timeStep,double noiseStrength, int seed){
     //initialising variables
@@ -24,6 +19,36 @@ System::System(int particleNumber, double sideLength, double timeStep,double noi
     //initialising generator
     this->gen = std::mt19937(seed);
     std::cout<<"I am constructing the System!\n";
+}
+
+// The update rule
+void System::updateRule(){
+    // Calculating the new angle of travel for the particle
+    std::vector<double> new_thetas;
+    for (Particle &current_particle: this->particles){
+        double neighbour_count = 0;
+        double neighbour_sin = 0;
+        double neighbour_cos = 0;
+        for (Particle &neighbour_particle: this->particles){
+            if (std::sqrt(std::pow(current_particle.x-neighbour_particle.x,2) + std::pow(current_particle.y+neighbour_particle.y,2)) <= 1){
+                neighbour_count += 1;
+                neighbour_sin += std::sin(neighbour_particle.theta);
+                neighbour_cos += std::cos(neighbour_particle.theta);
+            }
+        }
+        double avg_theta = std::atan2(neighbour_sin,neighbour_count);
+        avg_theta += this->uniform(M_PI*-1,M_PI);
+        new_thetas.push_back(avg_theta);
+    }
+
+    // Updating the direction and position of the particle
+    int count = 0;
+    for (Particle &current_particle: this->particles){
+        current_particle.x += std::cos(new_thetas[count])*current_particle.v*this->timeStep;
+        current_particle.y += std::sin(new_thetas[count])*current_particle.v*this->timeStep;
+        current_particle.theta = new_thetas[count];
+        count++; 
+    }
 }
 
 // Defining uniform function

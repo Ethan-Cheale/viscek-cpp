@@ -3,7 +3,7 @@
 
 #include <vector> //to use standard C++ vectors
 #include <random> //for the generator and uniform distribution
-#include <math.h> // for pi value
+#include <cmath> // for pi value
 #include <fstream> //for file saving
 #include "box.h" //header for boxes
 #include "particle.h" //header for particles
