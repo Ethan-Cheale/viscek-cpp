@@ -7,7 +7,7 @@ int main(){
     model.randomStart();
     model.saveConfig(root + std::to_string(0));
 
-    for(int i = 1; i<= 5; i++){
+    for(int i = 1; i<= 200; i++){
         model.updateRule();
         model.saveConfig(root + std::to_string(i));
     }
