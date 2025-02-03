@@ -27,17 +27,17 @@ void System::updateRule(){
     std::vector<double> new_thetas;
     for (Particle &current_particle: this->particles){
         double neighbour_count = 0;
-        double neighbour_sin = 0;
-        double neighbour_cos = 0;
+        double neighbour_sin = 0.0;
+        double neighbour_cos = 0.0;
         for (Particle &neighbour_particle: this->particles){
-            if (std::sqrt(std::pow(current_particle.x-neighbour_particle.x,2) + std::pow(current_particle.y+neighbour_particle.y,2)) <= 1){
+            if (std::sqrt(std::pow(current_particle.x-neighbour_particle.x,2.0) + std::pow(current_particle.y-neighbour_particle.y,2.0)) <= 1.0){   
                 neighbour_count += 1;
                 neighbour_sin += std::sin(neighbour_particle.theta);
                 neighbour_cos += std::cos(neighbour_particle.theta);
             }
         }
-        double avg_theta = std::atan2(neighbour_sin,neighbour_count);
-        avg_theta += this->uniform(M_PI*-1,M_PI);
+        double avg_theta = std::atan2(neighbour_sin/neighbour_count,neighbour_cos/neighbour_count);
+        //avg_theta += this->uniform(this->noiseStrength/-2, this->noiseStrength/2);
         new_thetas.push_back(avg_theta);
     }
 

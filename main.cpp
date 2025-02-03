@@ -3,7 +3,7 @@
 
 int main(){
     std::string root = "frames/frame";
-    System model(100, 20.0, 0.5, 0.1, 2025);
+    System model(100, 20.0, 0.5, 0, 2020);
     model.randomStart();
     model.saveConfig(root + std::to_string(0));
 
