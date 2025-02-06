@@ -1,35 +1,12 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import subprocess
 
-def read_config(filename, skip=2):
-    """Reading an vicsek configuration from a file handle"""
-    with open(filename) as file_handle:
-        # skip the first two lines
-        for i in range(skip): 
-            next(file_handle)
+class Wrapper:
+    def __init__(self, noise=0.1):
+        # code to initalise the object
+        self.noise = noise
+    
+    def run(self):
+        command = ["sudo","/mnt/c/Users/ethan/Documents/_Coding Projects/2nd Year/Programming and DA for Scientists/OOP/viscek-cpp", str(self.noise)]
+        result = subprocess.run(command, capture_output=True, text=True)
+        return result
 
-        data = np.loadtxt(file_handle)
-        conf = {}
-
-        conf["id"] = data[:,0]
-        conf["x"] = data[:,1]
-        conf["y"] = data[:,2]
-        conf["theta"] = data[:,3]
-        conf["vx"] = np.cos(conf["theta"])
-        conf["vy"] = np.sin(conf["theta"])  
-        return conf
-
-def plot(conf):
-    plt.figure(figsize=(5,5))
-    qv = plt.quiver(conf["x"], conf["y"], conf["vx"], conf["vy"], conf["theta"], scale=1, scale_units='xy', cmap='hsv')
-    plt.axis('equal')
-    return qv
-
-
-def main():
-    conf = read_config("init.conf")
-    plot(conf)
-
-if __name__ == "__main__":
-    main()
-    plt.savefig("particles", dpi = 500)

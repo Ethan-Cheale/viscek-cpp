@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import glob
 import natsort
 from matplotlib.animation import FuncAnimation
+import pyvicsek
 
 def read_config(filename, skip=2):
     """Reading an vicsek configuration from a file handle"""
@@ -37,13 +38,17 @@ plt.axis('off')
 
 # function called to plot all files
 def animate(i):
-    print(i)
+    #print(i)
     conf = read_config(files[i])
     pos = np.array(list(zip(conf["x"], conf["y"])))
-    print(pos)
+    #print(pos)
     qv.set_offsets(pos)
     qv.set_UVC(conf["vx"], conf["vy"], conf["theta"])
-    
+
+
+
+model = pyvicsek.Wrapper(noise=0.15)
+model.run()
 # Create the animation
 anim = FuncAnimation(fig,animate, range(len(files)))
 # Show the animation

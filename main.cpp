@@ -1,9 +1,12 @@
 #include<iostream>
+#include<cstdlib>
 #include "system.h"
 
-int main(){
+int main(int argc, char* argv[]){
+    double noiseStrength = std::stof(argv[1]);
+
     std::string root = "frames/frame";
-    System model(100, 20.0, 0.5, 0, 2020);
+    System model(100, 20.0, 0.5, noiseStrength, 2020);
     model.randomStart();
     model.saveConfig(root + std::to_string(0));
 
